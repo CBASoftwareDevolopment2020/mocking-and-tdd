@@ -1,0 +1,6 @@
+CREATE OR REPLACE PROCEDURE add_bank(cvr VARCHAR(8), name VARCHAR(64))
+LANGUAGE PLPGSQL AS $$
+BEGIN
+    INSERT INTO banks (cvr, name) VALUES (cvr, name);
+END;
+$$;
