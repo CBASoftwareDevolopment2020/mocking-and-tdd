@@ -6,8 +6,7 @@ public class AccountDTO implements Serializable {
     private long id;
     private String number;
 
-    public AccountDTO(long id, String number) {
-        this.id = id;
+    public AccountDTO(String number, String cpr, String bankCVR) {
         this.number = number;
     }
 

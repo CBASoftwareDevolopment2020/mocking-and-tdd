@@ -1,5 +1,6 @@
 package banking.data.access;
 
+import banking.Account;
 import banking.Bank;
 import banking.Customer;
 import banking.RealCustomer;
@@ -54,18 +55,20 @@ public class CustomerDAO {
         return customers;
     }
 
-    public static Customer add(Customer customer) {
+    public static int add(String cpr, String name, String cvr) {
         try {
             Connection con = DBConnector.getConnection();
             PreparedStatement stm = con.prepareStatement("CALL add_customer(?, ?, ?)");
-            stm.setString(1, customer.getCpr());
-            stm.setString(2, customer.getName());
-            stm.setString(3, customer.getBank().getCvr());
-            stm.executeUpdate();
+            stm.setString(1, cpr);
+            stm.setString(2, name);
+            stm.setString(3, cvr);
+            return stm.executeUpdate();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return customer;
+        return 0;
     }
+
+
 }

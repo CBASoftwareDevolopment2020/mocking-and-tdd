@@ -41,9 +41,9 @@ public class AccountDAO {
 
             while (rs.next()) {
                 String number = rs.getString(1);
-                String customer_cpr = rs.getString(2);
+                String customerCPS = rs.getString(2);
 
-                Customer customer = CustomerDAO.get(customer_cpr);
+                Customer customer = CustomerDAO.get(customerCPS);
                 accounts.add(new RealAccount(customer.getBank(), customer, number));
             }
         } catch (Exception e) {
@@ -52,17 +52,39 @@ public class AccountDAO {
         return accounts;
     }
 
-    public static Account add(Account account) {
+    public static int add(String accountNumber, String customerCpr) {
         try {
             Connection con = DBConnector.getConnection();
             PreparedStatement stm = con.prepareStatement("CALL add_account(?, ?)");
-            stm.setString(1, account.getNumber());
-            stm.setString(2, account.getCustomer().getCpr());
-            stm.executeUpdate();
+            stm.setString(1, accountNumber);
+            stm.setString(2, customerCpr);
+            return stm.executeUpdate();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return account;
+        return 0;
+    }
+
+    public static List<Account> getAccountsFromCustomer(String customerCPR){
+        List<Account> accounts = new ArrayList<Account>();
+
+        try {
+            Connection con = DBConnector.getConnection();
+            PreparedStatement stm = con.prepareStatement("SELECT * FROM accounts WHERE fk_customer_cpr = ?");
+            stm.setString(1, customerCPR);
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                String number = rs.getString(1);
+                String customerCPS = rs.getString(2);
+
+                Customer customer = CustomerDAO.get(customerCPS);
+                accounts.add(new RealAccount(customer.getBank(), customer, number));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return accounts;
     }
 }

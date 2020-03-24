@@ -50,17 +50,17 @@ public class BankDAO {
         return banks;
     }
 
-    public static Bank add(Bank bank) {
+    public static int add(String cvr, String name) {
         try {
             Connection con = DBConnector.getConnection();
             PreparedStatement stm = con.prepareStatement("CALL add_bank(?, ?)");
-            stm.setString(1, bank.getCvr());
-            stm.setString(2, bank.getName());
-            stm.executeUpdate();
+            stm.setString(1, cvr);
+            stm.setString(2, name);
+            return stm.executeUpdate();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return bank;
+        return 0;
     }
 }
