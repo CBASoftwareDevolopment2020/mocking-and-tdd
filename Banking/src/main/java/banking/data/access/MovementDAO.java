@@ -4,19 +4,16 @@ import banking.Movement;
 
 import java.util.List;
 
-public class MovementDAO implements IDAO<Movement>{
-    @Override
-    public Movement get(String id) {
+public class MovementDAO {
+    public static Movement get(String id) {
         return null;
     }
 
-    @Override
-    public List<Movement> getAll() {
+    public static List<Movement> getAll() {
         return null;
     }
 
-    @Override
-    public Movement save(Movement movement) {
+    public static Movement add(Movement movement) {
         return null;
     }
 }
