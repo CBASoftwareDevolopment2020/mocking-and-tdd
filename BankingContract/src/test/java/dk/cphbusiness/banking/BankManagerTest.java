@@ -43,7 +43,7 @@ public class BankManagerTest {
     public void testGetExistingAccount() {
         assumeThat(manager, not(nullValue()));
 
-        String accountNumber = "12345678";
+        String accountNumber = "42069";
         AccountDTO actual = manager.getAccount(accountNumber);
 
         assertThat(actual, not(nullValue()));

@@ -5,6 +5,6 @@ public class Env {
     public static String dbhost = "localhost";
     public static String database = "banking";
 
-    public static String dbuser = "stephan";
-    public static String dbpassword = "Marcus_9";
+    public static String dbuser = "postgres";
+    public static String dbpassword = "12345678";
 }

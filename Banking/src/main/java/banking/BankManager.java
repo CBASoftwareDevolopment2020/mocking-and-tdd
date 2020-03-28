@@ -4,15 +4,20 @@ import banking.data.access.AccountDAO;
 import banking.data.access.BankDAO;
 import banking.data.access.CustomerDAO;
 import dk.cphbusiness.banking.*;
+import org.junit.BeforeClass;
 
 import java.util.List;
 
 public class BankManager implements dk.cphbusiness.banking.BankManager {
+
     @Override
-    public AccountDTO addAccount(String number, String cpr, String bankCVR) {
-        AccountDAO.add(number, cpr);
-        AccountDTO accountDTO = new AccountDTO(number, cpr, bankCVR);
-        return accountDTO;
+    public AccountDTO addAccount(String number, String cpr, String bankCVR){
+
+        if(AccountDAO.add(number, cpr) > 0){
+            return new AccountDTO(number, cpr, bankCVR);
+        }else{
+            return null;
+        }
     }
 
     @Override
