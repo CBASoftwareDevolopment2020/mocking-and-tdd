@@ -19,7 +19,7 @@ public class BankManagerTest {
 
         String accountNumber = "12345678";
 
-        AccountDTO acc = manager.addAccount(accountNumber, "id123", "steph123");
+        AccountDTO acc = manager.addAccount(accountNumber, "id123", "bid123");
 
         assertThat(acc, not(nullValue()));
         assertEquals(accountNumber, acc.getNumber());
@@ -32,7 +32,7 @@ public class BankManagerTest {
         String cpr = "cp123";
         String name = "bob";
 
-        CustomerDTO customer = manager.addCustomer(cpr, name, "account", "bank");
+        CustomerDTO customer = manager.addCustomer(cpr, name, "account", "bid123");
 
         assertThat(customer, not(nullValue()));
         assertEquals(cpr, customer.getCpr());
