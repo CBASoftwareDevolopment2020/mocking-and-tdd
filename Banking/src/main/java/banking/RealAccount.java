@@ -1,5 +1,7 @@
 package banking;
 
+import banking.data.access.DAO;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,12 +23,12 @@ public class RealAccount implements Account {
     public long getBalance() {
         long in = deposits
                 .stream()
-                .mapToLong(e -> e.getAmount())
-                .reduce(0, (acc, e) -> acc + e);
+                .mapToLong(Movement::getAmount)
+                .reduce(0, Long::sum);
         long out = withdrawals
                 .stream()
-                .mapToLong(e -> e.getAmount())
-                .reduce(0, (acc, e) -> acc + e);
+                .mapToLong(Movement::getAmount)
+                .reduce(0, Long::sum);
         return in - out;
     }
 
