@@ -189,16 +189,13 @@ public class DAOTest {
         int firstAttempt = dao.addMovement(1000, realAccId, fakeAccId);
         int secondAttempt = dao.addMovement(1000, fakeAccId, realAccId);
         int thirdAttempt = dao.addMovement(1000, fakeAccId, fakeAccId);
-
-        // *note burde nok ikke gå igennem
-        // int fourthAttempt = dao.addMovement(1000, realAccId, realAccId);
+        int fourthAttempt = dao.addMovement(1000, realAccId, realAccId);
 
         // Assert all our invalid transactions did not pass
         assertEquals(0, firstAttempt);
         assertEquals(0, secondAttempt);
         assertEquals(0, thirdAttempt);
-        // *note
-        //assertEquals(0, fourthAttempt);
+        assertEquals(0, fourthAttempt);
     }
 
     @Test

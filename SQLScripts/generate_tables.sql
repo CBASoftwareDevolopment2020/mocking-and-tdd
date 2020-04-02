@@ -25,7 +25,8 @@ CREATE TABLE "movements" (
   "amount" bigint NOT NULL CHECK ("amount" > 0),
   "time" timestamp,
   "target" varchar,
-  "source" varchar
+  "source" varchar,
+  CHECK ("target" != "source")
 );
 
 ALTER TABLE "customers" ADD FOREIGN KEY ("fk_bank_cvr") REFERENCES "banks" ("cvr");
