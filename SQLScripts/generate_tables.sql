@@ -22,7 +22,7 @@ CREATE TABLE "accounts" (
 
 CREATE TABLE "movements" (
   "id" SERIAL PRIMARY KEY,
-  "amount" bigint,
+  "amount" bigint NOT NULL CHECK ("amount" > 0),
   "time" timestamp,
   "target" varchar,
   "source" varchar

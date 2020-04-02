@@ -100,6 +100,45 @@ public class DAOTest {
     }
 
     @Test
+    public void testAddAccountSuccess(){
+        dao.addAccount("962734", "id420");
+    }
+
+    @Test
+    public void testAddAccountFail(){
+        String realCusId = "id420";
+        String fakeCusId = "fid420";
+
+        String realAccId = "src123";
+        String fakeAccId = "fsrc123";
+
+        /* should fail as an account with given account_id already exist */
+        assertEquals(0, dao.addAccount(realAccId, realCusId));
+
+        /* should fail as given customer_id doesn't exist */
+        assertEquals(0, dao.addAccount(fakeAccId, fakeCusId));
+
+    }
+
+    @Test
+    public void testGetAllAccounts(){
+        List<Account> acc = dao.getAllAccounts();
+        assertTrue(acc.size() >= 3);
+    }
+
+    @Test
+    public void testGetAccountsFromExistingCustomer(){
+        List<Account> acc = dao.getAccountsFromCustomer("id123");
+        assertTrue(acc.size() >= 3);
+    }
+
+    @Test
+    public void testGetAccountsFromNoneExistingCustomer(){
+        List<Account> acc = dao.getAccountsFromCustomer("fid123");
+        assertEquals(0, acc.size());
+    }
+
+    @Test
     public void testAccountHasPositiveBalance(){
         Account acc = dao.getAccountWithMovements("src123");
 
@@ -174,6 +213,105 @@ public class DAOTest {
         // *note yikes drenge -> vi mangler en constraint i vores DB
         int res = dao.addMovement(0, "src123", "42069");
         assertEquals(0, res);
+    }
+
+    @Test
+    public void testGetExistingCustomer(){
+
+        String realCusId = "id123";
+        Customer c = dao.getCustomer(realCusId);
+
+        assertNotNull(c);
+        assertEquals(realCusId, c.getCpr());
+        assertEquals("Jacob", c.getName());
+        assertEquals("bid123", c.getBank().getCvr());
+    }
+
+    @Test
+    public void testGetNoneExistingCustomer(){
+
+        String fakeCusId = "fid123";
+        Customer c = dao.getCustomer(fakeCusId);
+        assertNull(c);
+    }
+
+    @Test
+    public void testGetAllCustomers(){
+        assertTrue(dao.getAllCustomers().size()>=3);
+    }
+
+
+    @Test
+    public void testAddCustomerToExistingBank(){
+
+        String newCpr = "newCpr123";
+        String name = "Daniel";
+        String realBankId = "bid123";
+
+        int res = dao.addCustomer(newCpr,name,realBankId);
+        int exp = 1;
+        assertEquals(exp, res);
+    }
+
+    @Test
+    public void testAddCustomerToNoneExistingBank(){
+
+        String newCpr = "newCpr123";
+        String name = "Daniel";
+        String fakeBankId = "fbid123";
+
+        int res = dao.addCustomer(newCpr,name,fakeBankId);
+        int exp = 0;
+
+        assertEquals(exp, res);
+    }
+
+    @Test
+    public void testAddCustomerToExistingBankWithTakenCpr(){
+
+        String usedCpr = "id123";
+        String name = "Daniel";
+        String realBankId = "bid123";
+
+        int res = dao.addCustomer(usedCpr,name,realBankId);
+        int exp = 0;
+        assertEquals(exp, res);
+    }
+
+    @Test
+    public void testGetExistingBank(){
+        Bank bank = dao.getBank("bid123");
+
+        assertNotNull(bank);
+        assertEquals("bid123", bank.getCvr());
+        assertEquals("Slybank", bank.getName());
+    }
+
+    @Test
+    public void testGetNoneExistingBank(){
+        Bank bank = dao.getBank("fbid123");
+        assertNull(bank);
+    }
+
+    @Test
+    public void testGetAllBanks(){
+        List<Bank> banks = dao.getAllBanks();
+        boolean res = banks.size() >= 1;
+        assertTrue(res);
+    }
+
+    @Test
+    public void testAddBankSuccessfully(){
+        int res = dao.addBank("newbid123", "New Slybank");
+        int exp = 1;
+        assertEquals(exp, res);
+    }
+
+    @Test
+    public void testAddBankWithExistingBankId(){
+        int res = dao.addBank("bid123", "New Slybank");
+        int exp = 0;
+        assertEquals(exp, res);
     }
 
 }

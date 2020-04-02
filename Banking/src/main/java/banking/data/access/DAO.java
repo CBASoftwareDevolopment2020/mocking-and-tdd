@@ -197,7 +197,8 @@ public class DAO implements IDAO{
             PreparedStatement stm = con.prepareStatement("CALL add_bank(?, ?)");
             stm.setString(1, cvr);
             stm.setString(2, name);
-            return stm.executeUpdate();
+            stm.executeUpdate();
+            return 1;
 
         } catch (Exception e) {
             e.printStackTrace();
