@@ -15,5 +15,6 @@ public class Main {
 
         //List<Bank> banks = BankDAO.getAll();
         //System.out.println(banks.size());
+
     }
 }
