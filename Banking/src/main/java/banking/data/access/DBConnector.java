@@ -11,6 +11,7 @@ public class DBConnector {
     public static Connection getConnection() {
         if (conn == null) {
             try {
+                Class.forName("org.postgresql.Driver");
                 String url = String.format("jdbc:postgresql://%s:%s/%s", Env.dbhost, Env.dbport, Env.database );
                 conn = DriverManager.getConnection(url, Env.dbuser, Env.dbpassword);
             } catch (Exception e) {
@@ -23,6 +24,7 @@ public class DBConnector {
     public static Connection getFakeConnection() {
         if (fconn == null) {
             try {
+                Class.forName("org.postgresql.Driver");
                 String url = String.format("jdbc:postgresql://%s:%s/%s", Env.dbhost, Env.dbport, Env.fdatabase );
                 fconn = DriverManager.getConnection(url, Env.dbuser, Env.dbpassword);
             } catch (Exception e) {

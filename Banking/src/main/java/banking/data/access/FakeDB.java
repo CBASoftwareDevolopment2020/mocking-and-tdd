@@ -7,7 +7,6 @@ import dk.cphbusiness.banking.CustomerDTO;
 import dk.cphbusiness.banking.MovementDTO;
 import net.sourceforge.plantuml.real.Real;
 
-import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

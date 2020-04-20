@@ -5,7 +5,6 @@ import banking.data.access.BankDAO;
 import banking.data.access.CustomerDAO;
 import banking.data.access.IDAO;
 import dk.cphbusiness.banking.*;
-import org.junit.BeforeClass;
 
 import java.util.List;
 import java.util.stream.Collectors;
