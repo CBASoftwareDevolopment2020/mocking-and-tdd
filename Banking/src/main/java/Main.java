@@ -1,9 +1,4 @@
-import banking.Bank;
-import banking.RealBank;
-import banking.data.access.BankDAO;
-import dk.cphbusiness.banking.*;
-
-import java.util.List;
+import banking.data.access.FakeDB;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,5 +11,9 @@ public class Main {
         //List<Bank> banks = BankDAO.getAll();
         //System.out.println(banks.size());
 
+        System.out.println("Stephan");
+        FakeDB fdb = new FakeDB();
+        System.out.println(fdb.getAllAccounts().size());
+        System.out.println(fdb);
     }
 }

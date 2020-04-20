@@ -64,7 +64,7 @@ public class AccountTest {
         account.addWithdrawal(withdrawal);
         long res = account.getBalance();
 
-        assertEquals(0_00, res);
+        assertEquals(0, res);
     }
 
     @Test

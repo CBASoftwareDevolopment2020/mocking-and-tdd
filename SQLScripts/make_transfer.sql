@@ -5,7 +5,7 @@ CREATE OR REPLACE PROCEDURE make_transfer(
 
 LANGUAGE PLPGSQL AS $$
 BEGIN
-    INSERT INTO movement (amount, source, target, time) VALUES (amount, source, target, NOW());
+    INSERT INTO movements (amount, source, target, time) VALUES (amount, source, target, NOW());
 END;
 $$;
 
