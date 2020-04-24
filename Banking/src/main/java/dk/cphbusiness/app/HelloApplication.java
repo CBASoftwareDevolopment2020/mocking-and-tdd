@@ -5,6 +5,7 @@ import dk.cphbusiness.rest.AccountResource;
 import dk.cphbusiness.rest.BankResource;
 import dk.cphbusiness.rest.CustomerResource;
 import dk.cphbusiness.rest.MovementResource;
+import dk.cphbusiness.rest.Resource;
 import javax.ws.rs.core.Application;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,6 +17,7 @@ public class HelloApplication extends Application {
         singletons.add(new BankResource());
         singletons.add(new CustomerResource());
         singletons.add(new MovementResource());
+        singletons.add(new Resource());
     }
     @Override
     public Set<Object> getSingletons() {

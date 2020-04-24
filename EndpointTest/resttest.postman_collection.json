@@ -1,0 +1,644 @@
+{
+	"info": {
+		"_postman_id": "a00e85e9-a327-41c9-bb92-cca2b4fa72e0",
+		"name": "resttest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "reset",
+			"item": [
+				{
+					"name": "reset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9dde5e25-831b-455f-8ec3-170ea8c4bd97",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/TestingAssignmentW9_war_exploded/reset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"TestingAssignmentW9_war_exploded",
+								"reset"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bank",
+			"item": [
+				{
+					"name": "addBank",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fe62b570-0184-4992-aaf4-aeef064fbefa",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Awesome Bank\",\n\t\"cvr\":\"bid42069\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/TestingAssignmentW9_war_exploded/banks/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"TestingAssignmentW9_war_exploded",
+								"banks",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBank",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "12df1780-7cc3-4c38-84eb-8e65f7f6e769",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Test correct cvr\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.cvr).to.eql('bid42069');",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/TestingAssignmentW9_war_exploded/banks/bank/bid42069",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"TestingAssignmentW9_war_exploded",
+								"banks",
+								"bank",
+								"bid42069"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBanks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "910c8fbb-e0c2-42ee-a8e5-787832d84e74",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Test correct number\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.length).to.eql(2);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/TestingAssignmentW9_war_exploded/banks/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"TestingAssignmentW9_war_exploded",
+								"banks",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "addCustomer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ec5539bb-5287-4a22-ab74-3a9f0bf90185",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"cpr\":\"nick123\",\n\t\"name\":\"Daniel\",\n\t\"cvr\":\"bid123\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/TestingAssignmentW9_war_exploded/customers/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"TestingAssignmentW9_war_exploded",
+								"customers",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCustomer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2278cde4-d8e2-4fca-ac34-7ed6d671938e",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Test correct cpr\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.cpr).to.eql('nick123');",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/TestingAssignmentW9_war_exploded/customers/customer/nick123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"TestingAssignmentW9_war_exploded",
+								"customers",
+								"customer",
+								"nick123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCustomers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3c46dab1-0a94-452e-8a1b-2cf2767074cf",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Test correct number\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.length).to.eql(4);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/TestingAssignmentW9_war_exploded/customers/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"TestingAssignmentW9_war_exploded",
+								"customers",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "addAccount",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1e622923-ef29-40be-a3b7-19a2d76584d3",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"cpr\":\"nick123\",\n\t\"number\":\"acc42069\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/TestingAssignmentW9_war_exploded/accounts/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"TestingAssignmentW9_war_exploded",
+								"accounts",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAccount",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b38af56e-d144-4244-b297-d53ca98381b3",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Test correct number\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.number).to.eql('42069');",
+									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/TestingAssignmentW9_war_exploded/accounts/account/42069",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"TestingAssignmentW9_war_exploded",
+								"accounts",
+								"account",
+								"42069"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAccounts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6b3f0252-80da-4d8f-b88f-0d3d2c23959e",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Test correct number\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.length).to.eql(4);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/TestingAssignmentW9_war_exploded/accounts/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"TestingAssignmentW9_war_exploded",
+								"accounts",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAccountsFromCustomer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "42ecc31d-5d77-4467-8a53-038d38665bee",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Test correct number\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.length).to.eql(1);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/TestingAssignmentW9_war_exploded/accounts/nick123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"TestingAssignmentW9_war_exploded",
+								"accounts",
+								"nick123"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movement",
+			"item": [
+				{
+					"name": "addMovement",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5aea9f2b-5226-4692-bb7a-2c92b157ea1b",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"amount\":420,\n\t\"source_number\":\"42069\",\n\t\"target_number\":\"acc42069\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/TestingAssignmentW9_war_exploded/movements/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"TestingAssignmentW9_war_exploded",
+								"movements",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDeposits",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b4fd6f85-871d-4b5d-9624-11f9d88cb13a",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Test correct number\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.length).to.eql(1);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/TestingAssignmentW9_war_exploded/movements/deposits/42069",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"TestingAssignmentW9_war_exploded",
+								"movements",
+								"deposits",
+								"42069"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getWithdrawals",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a72f57cc-0a99-4660-80c3-3835f3d6b500",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Test correct number\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.length).to.eql(3);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/TestingAssignmentW9_war_exploded/movements/withdrawals/42069",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"TestingAssignmentW9_war_exploded",
+								"movements",
+								"withdrawals",
+								"42069"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "cee469b1-df39-429d-a187-bfd0179b1130",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "27d6a68d-2508-4c1c-8350-5a700ebec5d6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

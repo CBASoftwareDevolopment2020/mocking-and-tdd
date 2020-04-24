@@ -48,7 +48,7 @@ public class MovementResource {
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response postUser(String json) {
+    public Response addMovement(String json) {
         JsonParser parser = new JsonParser();
         JsonObject data = (JsonObject) parser.parse(json);
 
@@ -57,6 +57,6 @@ public class MovementResource {
             return Response.notModified().build();
         }
 
-        return Response.ok(gson.toJson("{\"status\":\"Success\"}")).build();
+        return Response.ok().build();
     }
 }

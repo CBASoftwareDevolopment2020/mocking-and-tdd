@@ -16,13 +16,13 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Path("/")
+@Path("/accounts")
 public class AccountResource {
     IDAO dao = new DAO(DBConnector.getFakeConnection());
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @GET
-    @Path("/accounts")
+    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAccounts() {
 
@@ -42,10 +42,10 @@ public class AccountResource {
     }
 
     @POST
-    @Path("/add-account")
+    @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response postUser(String json) {
+    public Response addAccount(String json) {
         JsonParser parser = new JsonParser();
         JsonObject data = (JsonObject) parser.parse(json);
 
@@ -54,11 +54,11 @@ public class AccountResource {
             return Response.notModified().build();
         }
 
-        return Response.ok(gson.toJson("{\"status\":\"Success\"}")).build();
+        return Response.ok().build();
     }
 
     @GET
-    @Path("/accounts/{cpr}")
+    @Path("/{cpr}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAccountsFromCustomer(@PathParam("cpr") String cpr){
         List<AccountDTO> accounts = dao.getAccountsFromCustomer(cpr)

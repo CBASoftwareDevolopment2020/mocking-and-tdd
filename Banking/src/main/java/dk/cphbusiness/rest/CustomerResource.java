@@ -16,13 +16,13 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Path("/")
+@Path("/customers")
 public class CustomerResource {
     IDAO dao = new DAO(DBConnector.getFakeConnection());
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @GET
-    @Path("/customers")
+    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCustomers() {
 
@@ -42,10 +42,10 @@ public class CustomerResource {
     }
 
     @POST
-    @Path("/add-customer")
+    @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response postUser(String json) {
+    public Response addCustomer(String json) {
         JsonParser parser = new JsonParser();
         JsonObject data = (JsonObject) parser.parse(json);
 
@@ -54,6 +54,6 @@ public class CustomerResource {
             return Response.notModified().build();
         }
 
-        return Response.ok(gson.toJson("{\"status\":\"Success\"}")).build();
+        return Response.ok().build();
     }
 }

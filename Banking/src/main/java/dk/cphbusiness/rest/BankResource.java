@@ -16,13 +16,13 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Path("/")
+@Path("/banks")
 public class BankResource {
     IDAO dao = new DAO(DBConnector.getFakeConnection());
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @GET
-    @Path("/banks")
+    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBanks() {
 
@@ -42,10 +42,10 @@ public class BankResource {
     }
 
     @POST
-    @Path("/add-bank")
+    @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response postUser(String json) {
+    public Response addBank(String json) {
         JsonParser parser = new JsonParser();
         JsonObject data = (JsonObject) parser.parse(json);
 
@@ -54,6 +54,6 @@ public class BankResource {
             return Response.notModified().build();
         }
 
-        return Response.ok(gson.toJson("{\"status\":\"Success\"}")).build();
+        return Response.ok().build();
     }
 }
