@@ -55,7 +55,7 @@ _success response_
 ```
 status: 200, ok
 ```
-```json
+```js
 [
     { "cvr": String, "name": String },
     // ...
@@ -85,7 +85,7 @@ _success response_
 ```
 status: 200, ok
 ```
-```json
+```js
 { 
     "cvr": String, 
     "name": String
@@ -110,7 +110,7 @@ _uri, post request_
 ```
   
 _json, request body_
-```json
+```js
 {
     "name": String,
     "cvr": String
@@ -149,7 +149,7 @@ _success response_
 ```
 status: 200, ok
 ```
-```json
+```js
 [
     { "cpr": String, "name": String },
     // ...
@@ -179,7 +179,7 @@ _success response_
 ```
 status: 200, ok
 ```
-```json
+```js
 { 
     "cpr": String, 
     "name": String
@@ -204,7 +204,7 @@ _uri, post request_
 ```
   
 _json, request body_
-```json
+```js
 {
     "name": String,
     "cpr": String,
@@ -245,7 +245,7 @@ _success response_
 ```
 status: 200, ok
 ```
-```json
+```js
 [
     { "cpr": String, "number": String },
     // ...
@@ -275,7 +275,7 @@ _success response_
 ```
 status: 200, ok
 ```
-```json
+```js
 { "number": String, "cpr": String, "cvr": String }
 ```
   
@@ -297,7 +297,7 @@ _uri, post request_
 ```
   
 _json, request body_
-```json
+```js
 {
     "cpr": String,
     "number": String
@@ -310,7 +310,7 @@ _success response_
 ```
 status: 200, ok
 ```
-```json
+```js
 { "status": "success" }
 ```
   
@@ -340,7 +340,7 @@ _success response_
 ```
 status: 200, ok
 ```
-```json
+```js
 [
     { "time": Long, "amount": Long, "source": String, "target": String },
     // ...
@@ -371,7 +371,7 @@ _success response_
 status: 200, ok
 ```
   
-```json
+```js
 [
     { "time": Long, "amount": Long, "source": String, "target": String },
     // ...
@@ -379,7 +379,7 @@ status: 200, ok
 ```
   
 _error response_
-```json
+```
 status: 304, not modified
 ```
   
@@ -396,7 +396,7 @@ _uri, post request_
 ```
   
 _json, request body_
-```json
+```js
 {
     "amount" Long,
     "source_number" String,
@@ -407,12 +407,12 @@ _json, request body_
 ####  Responses
   
 _success response_
-```json
+```
 status: 200, ok
 ```
   
 _error response_
-```json
+```
 status: 304, not modified
 ```
   
