@@ -273,7 +273,7 @@ public class DAO implements IDAO{
     }
 
 
-    public Account addMovementsToAccountAndReturnTheAccountAgain(Account a){
+    private Account addMovementsToAccountAndReturnTheAccountAgain(Account a){
         List<Movement> deps = getDeposits(a.getNumber());
         List<Movement> withs = getWithdrawals(a.getNumber());
 

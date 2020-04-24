@@ -1,12 +1,13 @@
 package dk.cphbusiness.rest;
 
 import banking.Customer;
-import banking.RealCustomer;
 import banking.data.access.DAO;
 import banking.data.access.DBConnector;
 import banking.data.access.IDAO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import dk.cphbusiness.banking.CustomerDTO;
 
 import javax.ws.rs.*;
@@ -16,15 +17,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Path("/")
-public class HelloRestService {
+public class CustomerResource {
     IDAO dao = new DAO(DBConnector.getFakeConnection());
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-    @GET // This annotation indicates GET request
-    @Path("/hello")
-    public Response hello() {
-        return Response.status(200).entity("hello").build();
-    }
 
     @GET
     @Path("/customers")
@@ -51,10 +46,14 @@ public class HelloRestService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response postUser(String json) {
-        Customer customer = gson.fromJson(json, RealCustomer.class);
+        JsonParser parser = new JsonParser();
+        JsonObject data = (JsonObject) parser.parse(json);
 
-        dao.addCustomer(customer.getCpr(), customer.getName(), customer.getBank().getCvr());
+        int response = dao.addCustomer(data.get("cpr").getAsString(), data.get("name").getAsString(), data.get("cvr").getAsString());
+        if (response == 0) {
+            return Response.notModified().build();
+        }
 
-        return Response.ok(gson.toJson("")).build();
+        return Response.ok(gson.toJson("{\"status\":\"Success\"}")).build();
     }
 }
