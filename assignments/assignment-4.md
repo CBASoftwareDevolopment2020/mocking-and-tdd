@@ -310,9 +310,6 @@ _success response_
 ```
 status: 200, ok
 ```
-```js
-{ "status": "success" }
-```
   
 _error response_
 ```
