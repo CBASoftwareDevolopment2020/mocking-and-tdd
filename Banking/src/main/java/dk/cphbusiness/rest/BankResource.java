@@ -38,6 +38,9 @@ public class BankResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBank(@PathParam("cvr") String cvr) {
         Bank bank = dao.getBank(cvr);
+        if (bank == null){
+            return Response.status(404).build();
+        }
         return Response.ok(gson.toJson(new BankDTO(bank.getCvr(), bank.getName()))).build();
     }
 

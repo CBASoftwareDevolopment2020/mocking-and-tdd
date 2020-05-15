@@ -38,6 +38,9 @@ public class AccountResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAccount(@PathParam("id") String id) {
         Account account = dao.getAccount(id);
+        if (account == null){
+            return Response.status(404).build();
+        }
         return Response.ok(gson.toJson(new AccountDTO(account.getNumber(), account.getCustomer().getCpr(), account.getBank().getCvr()))).build();
     }
 

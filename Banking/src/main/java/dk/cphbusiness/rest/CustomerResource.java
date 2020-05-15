@@ -38,6 +38,9 @@ public class CustomerResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCustomer(@PathParam("cpr") String cpr) {
         Customer customer = dao.getCustomer(cpr);
+        if (customer == null){
+            return Response.status(404).build();
+        }
         return Response.ok(gson.toJson(new CustomerDTO(customer.getCpr(), customer.getName()))).build();
     }
 
