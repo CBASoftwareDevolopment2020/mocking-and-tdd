@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="main.css" />
+		<script src="index.js"></script>
+		<title>Snake Bank</title>
+	</head>
+	<body>
+		<h1>banks</h1>
+
+		<nav>
+			<a href="index.html">banks</a>
+			<a href="customers.html">customers</a>
+			<a href="accounts.html">accounts</a>
+			<a href="movements.html">movements</a>
+		</nav>
+
+		<main>
+			<div class="list-container">
+				<h2>bank list</h2>
+			</div>
+
+			<div class="action-container">
+				<h2>get bank</h2>
+				<form class="get-form" id="get-form">
+					<label>CVR</label>
+					<input type="text" name="cvr" required />
+
+					<input type="submit" value="get bank" />
+				</form>
+
+				<h2>add bank</h2>
+				<form class="add-form" id="add-form">
+					<label>Name</label>
+					<input type="text" id="" name="name" required />
+
+					<label>CVR</label>
+					<input type="text" name="cvr" required />
+
+					<input type="submit" value="add bank" />
+				</form>
+			</div>
+		</main>
+
+		<script>
+			const getAllBanks = async () => {
+				const banks = await getBanks();
+
+				const container = document.querySelector('.list-container');
+				html = '<h2>bank list</h2>';
+				for (bank of banks) {
+					html += `
+                        <div class="item-container">
+                            <span><b>Name</b> ${bank.name}</span>
+                            <span><b>CVR</b> ${bank.cvr}</span>
+                        </div>`;
+				}
+				container.innerHTML = html;
+			};
+
+			const submitGetBank = async (e) => {
+				e.preventDefault();
+				const cvr = e.target['cvr'].value;
+				const bank = await getBank(cvr);
+				if (bank.error) return alert('some error');
+
+				const container = document.querySelector('.list-container');
+				html = '<h2>bank list</h2>';
+
+				html += `
+                    <div class="item-container" id='${cvr}'>
+                        <span><b>Name</b> ${bank.name}</span>
+                        <span><b>CVR</b> ${bank.cvr}</span>
+                    </div>`;
+
+				container.innerHTML = html;
+			};
+
+			const submitAddBank = async (e) => {
+				e.preventDefault();
+				const cvr = e.target['cvr'].value;
+				const name = e.target['name'].value;
+				const response = await addBank(name, cvr);
+				if (response != 200) alert('cvr exists');
+				else await getAllBanks();
+			};
+
+			document.getElementById('get-form').addEventListener('submit', submitGetBank);
+			document.getElementById('add-form').addEventListener('submit', submitAddBank);
+
+			(async () => {
+				await getAllBanks();
+			})();
+		</script>
+	</body>
+</html>

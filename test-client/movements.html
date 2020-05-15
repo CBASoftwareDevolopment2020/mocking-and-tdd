@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="main.css" />
+		<script src="index.js"></script>
+		<title>Snake Bank</title>
+	</head>
+	<body>
+		<h1>movements</h1>
+
+		<nav>
+			<a href="index.html">banks</a>
+			<a href="customers.html">customers</a>
+			<a href="accounts.html">accounts</a>
+			<a href="movements.html">movements</a>
+		</nav>
+
+		<main>
+			<div class="list-container">
+				<h2>movement list</h2>
+				<div class="item-container">
+					<!-- <span><b>Source</b> my source</span>
+					<span><b>Target</b> my target</span>
+					<span><b>Time</b> 4:20</span>
+					<span><b>Amount</b> 420</span> -->
+				</div>
+			</div>
+
+			<div class="action-container">
+				<h2>get deposits</h2>
+				<form class="get-deposits-form" id="dep-form">
+					<label>account</label>
+					<input type="text" name="acc" value="42069" required />
+
+					<input type="submit" value="get deposits" />
+				</form>
+
+				<h2>get withdrawals</h2>
+				<form class="get-withdrawals-form" id="wit-form">
+					<label>account</label>
+					<input type="text" name="acc" value="src123" required />
+
+					<input type="submit" value="get withdrawals" />
+				</form>
+
+				<h2>add movement</h2>
+				<form class="add-movement-form" id="add-form">
+					<label>amount</label>
+					<input type="number" name="amount" value="" required />
+
+					<label>source account</label>
+					<input type="text" name="source" value="" required />
+
+					<label>target account</label>
+					<input type="text" name="target" value="" required />
+
+					<input type="submit" value="add movement" />
+				</form>
+			</div>
+		</main>
+
+		<script>
+			const insertData = (data) => {
+				const container = document.querySelector('.list-container');
+				html = '<h2>movement list</h2>';
+				console.log(data);
+				data.forEach((d) => {
+					html += `
+					<div class="item-container item">
+						<span><b>Source</b> ${d.sourceAccount}</span>
+						<span><b>Target</b> ${d.targetAccount}</span>
+						<span><b>Time</b> ${d.time}</span>
+						<span><b>Amount</b> ${d.amount}</span>
+                    </div>`;
+				});
+
+				container.innerHTML = html;
+			};
+
+			const gw = async (e) => {
+				e.preventDefault();
+				const acc = e.target['acc'].value;
+				const response = await getWithdrawals(acc);
+				insertData(response);
+			};
+
+			const gd = async (e) => {
+				e.preventDefault();
+				const acc = e.target['acc'].value;
+				const response = await getWithdrawals(acc);
+				insertData(response);
+			};
+
+			const st = async (e) => {
+				e.preventDefault();
+				const amount = e.target['amount'].value;
+				const source = e.target['source'].value;
+				const target = e.target['target'].value;
+				const trans = await addMovement(amount, source, target);
+				if (trans == 200) {
+					const deps = await getDeposits(source);
+					const wits = await getWithdrawals(source);
+					insertData(deps.concat(wits));
+				} else {
+					alert('some error');
+				}
+			};
+
+			document.getElementById('wit-form').addEventListener('submit', gw);
+			document.getElementById('dep-form').addEventListener('submit', gd);
+			document.getElementById('add-form').addEventListener('submit', st);
+		</script>
+	</body>
+</html>

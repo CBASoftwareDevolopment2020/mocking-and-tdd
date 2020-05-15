@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="main.css" />
+		<script src="index.js"></script>
+		<title>Snake Bank</title>
+	</head>
+	<body>
+		<h1>accounts</h1>
+
+		<nav>
+			<a href="index.html">banks</a>
+			<a href="customers.html">customers</a>
+			<a href="accounts.html">accounts</a>
+			<a href="movements.html">movements</a>
+		</nav>
+
+		<main>
+			<div class="list-container">
+				<h2>account list</h2>
+			</div>
+
+			<div class="action-container">
+				<h2>get account</h2>
+				<form class="get-form" id="get-form">
+					<label>Number</label>
+					<input type="text" name="id" required />
+
+					<input type="submit" value="get account" />
+				</form>
+
+				<h2>add account</h2>
+				<form class="add-form" id="add-form">
+					<label>CPR</label>
+					<input type="text" name="cpr" required />
+
+					<label>Number</label>
+					<input type="text" name="number" required />
+
+					<input type="submit" value="add account" />
+				</form>
+			</div>
+		</main>
+		<script>
+			const getAllAccounts = async () => {
+				const accounts = await getAccounts();
+				console.log('account', accounts);
+
+				const container = document.querySelector('.list-container');
+				s = '<h2>account list</h2>';
+				accounts.forEach((acc) => {
+					s += `
+					<div class="item-container item">
+                        <span><b>Number</b> ${acc.number}</span>
+                        <span><b>CVR</b> ${acc.cvr}</span>
+                        <span><b>CPR</b> ${acc.cpr}</span>
+					</div>`;
+				});
+				container.innerHTML = s;
+			};
+
+			const submitGetAccount = async (e) => {
+				e.preventDefault();
+				const id = e.target['id'].value;
+				const account = await getAccount(id);
+				if (account.error) return alert('some error');
+
+				const container = document.querySelector('.list-container');
+				html = '<h2>Account list</h2>';
+
+				html += `
+                    <div class="item-container item">
+                        <span><b>Number</b> ${account.number}</span>
+						<span><b>CVR</b> ${account.cvr}</span>
+						<span><b>CPR</b> ${account.cpr}</span>
+                    </div>`;
+
+				container.innerHTML = html;
+			};
+
+			const submitAddAccount = async (e) => {
+				e.preventDefault();
+				const cpr = e.target['cpr'].value;
+				const number = e.target['number'].value;
+				const response = await addAccount(cpr, number);
+				if (response != 200) alert('some error occurred');
+				else {
+					const accounts = await getAllAccountsFromCustomer(cpr);
+
+					const container = document.querySelector('.list-container');
+					s = '<h2>account list</h2>';
+					accounts.forEach((acc) => {
+						s += `
+                            <div class="item-container item">
+                                <span><b>Number</b> ${acc.number}</span>
+                                <span><b>CVR</b> ${acc.cvr}</span>
+                                <span><b>CPR</b> ${acc.cpr}</span>
+                            </div>`;
+					});
+					container.innerHTML = s;
+				}
+			};
+
+			document.getElementById('get-form').addEventListener('submit', submitGetAccount);
+			document.getElementById('add-form').addEventListener('submit', submitAddAccount);
+
+			(async () => {
+				await getAllAccounts();
+			})();
+		</script>
+	</body>
+</html>

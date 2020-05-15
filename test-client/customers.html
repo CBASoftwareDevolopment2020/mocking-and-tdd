@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="main.css" />
+		<script src="index.js"></script>
+		<title>Snake Bank</title>
+	</head>
+	<body>
+		<h1>customers</h1>
+
+		<nav>
+			<a href="index.html">banks</a>
+			<a href="customers.html">customers</a>
+			<a href="accounts.html">accounts</a>
+			<a href="movements.html">movements</a>
+		</nav>
+
+		<main>
+			<div class="list-container"></div>
+			</div>
+
+			<div class="action-container">
+				<h2>get customer</h2>
+				<form class="get-form" id="get-form">
+					<label>CPR</label>
+					<input type="text" name="cpr" required />
+
+					<input type="submit" value="get customer" />
+				</form>
+
+				<h2>add customer</h2>
+				<form class="add-form" id="add-form">
+					<label>Name</label>
+					<input type="text" name="name" required />
+
+					<label>CPR</label>
+					<input type="text" name="cpr" required />
+
+					<label>CVR</label>
+					<input type="text" name="cvr" required />
+
+					<input type="submit" value="add customer" />
+				</form>
+			</div>
+		</main>
+
+		<script>
+            const getAllCustomers = async () => {
+                const customers = await getCustomers();
+				console.log(customers);
+
+				const container = document.querySelector('.list-container');
+				html = '<h2>customer list</h2>';
+				for (customer of customers) {
+					html += `
+                    <div class="item-container">
+                        <span><b>Name</b> ${customer.name}</span>
+                        <span><b>CPR</b> ${customer.cpr}</span>
+                    </div>`;
+				}
+				container.innerHTML = html;
+            }
+
+            const submitGetCustomer = async (e) => {
+				e.preventDefault();
+                const cpr = e.target['cpr'].value;
+				const customer = await getCustomer(cpr);
+				if (customer.error) return alert("some error")
+
+				const container = document.querySelector('.list-container');
+				html = '<h2>customer list</h2>';
+
+				html += `
+                    <div class="item-container">
+                        <span><b>Name</b> ${customer.name}</span>
+                        <span><b>CPR</b> ${customer.cpr}</span>
+                    </div>`;
+
+				container.innerHTML = html;
+			};
+
+			const submitAddCustomer = async (e) => {
+				e.preventDefault();
+				const cpr = e.target['cpr'].value;
+				const cvr = e.target['cvr'].value;
+				const name = e.target['name'].value;
+				const response = await addCustomer(name, cpr, cvr);
+				if (response != 200) alert('some error occurred');
+				else await getAllCustomers();
+			};
+
+			document.getElementById('get-form').addEventListener('submit', submitGetCustomer);
+			document.getElementById('add-form').addEventListener('submit', submitAddCustomer);
+
+			(async () => {
+				await getAllCustomers();
+			})();
+		</script>
+	</body>
+</html>
